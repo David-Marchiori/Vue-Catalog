@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "@primeuix/themes": "^1.2.5",
-    "primevue": "^4.4.1",
-    "vue-router": "^4.6.3"
-  }
-}

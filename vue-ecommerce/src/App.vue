@@ -1,15 +1,13 @@
 <script setup>
-import Button from "primevue/button";
-import InputText from "primevue/inputtext";
 import { ref } from "vue";
-
-const text = ref("");
+import Home from "./views/Home.vue";
+import Header from "./components/Header.vue";
+import { RouterView } from "vue-router";
 </script>
 
 <template>
-  <InputText v-model="text" placeholder="Enter text here" />
-  <Button label="Submit" />
-
-  <br />
-  {{ text }}
+  <div id="app">
+    <Header />
+    <RouterView />
+  </div>
 </template>
