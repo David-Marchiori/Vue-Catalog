@@ -1,5 +1,5 @@
 <template>
-  <header class="header">
+  <header class="header-container">
     <Menubar :model="items">
       <template #item="{ item, props, hasSubmenu }">
         <router-link
