@@ -7,9 +7,9 @@
         class="w-full h-64 overflow-hidden flex items-center justify-center bg-gray-100 rounded"
       >
         <img
-          :src="product.image"
+          :src="product.images[0]"
           :alt="product.title"
-          class="object-contain h-full rounded"
+          class="object-cover w-full rounded"
         />
       </div>
     </div>
@@ -17,7 +17,12 @@
     <div class="flex justify-between items-center">
       <div class="mt-0 font-semibold text-xl">${{ product.price }}</div>
       <span>
-        <Button icon="pi pi-heart" severity="secondary" variant="outlined" />
+        <Button
+          icon="pi pi-heart"
+          severity="secondary"
+          variant="outlined"
+          @click="favoritesStore.toggleFavorite(product)"
+        />
         <Button icon="pi pi-shopping-cart" class="ml-2" />
       </span>
     </div>
@@ -25,6 +30,7 @@
 </template>
 
 <script setup>
+import { useFavoritesStore } from "../../stores/useFavoritesStore";
 import Button from "primevue/button";
 
 defineProps({
@@ -33,4 +39,6 @@ defineProps({
     required: true,
   },
 });
+
+const favoritesStore = useFavoritesStore();
 </script>
