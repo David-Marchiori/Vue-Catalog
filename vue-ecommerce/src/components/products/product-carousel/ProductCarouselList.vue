@@ -4,20 +4,15 @@
       <ProductCard :product="slotProps.data" />
     </template>
   </Carousel>
-  <li v-for="product in filteredProducts" :key="product.id">
-    {{ product.name }}
-  </li>
 </template>
 <script setup>
 import Carousel from "primevue/carousel";
-import { ref, computed } from "vue";
-import { defineProps } from "vue";
+import { ref, defineProps, onMounted, watch } from "vue";
 
 import ProductCard from "../ProductCard.vue";
 import { useProductsStore } from "../../../stores/useProductsStore";
-import { useProductFilter } from "../../../composables/useProductFilter";
 
-defineProps({
+const props = defineProps({
   categorySlug: {
     type: String,
     required: true,
@@ -25,13 +20,27 @@ defineProps({
 });
 
 const productsStore = useProductsStore();
-productsStore.fetchProducts();
 
-const filteredProducts = computed(() =>
-  productsStore.products.filter(
-    (product) => product.category.slug === "electronics"
-  )
+const filteredProducts = ref([]);
+
+onMounted(() => {
+  productsStore.fetchProducts();
+});
+
+watch(
+  () => props.categorySlug,
+  (newSlug) => {
+    filteredProducts.value = filterProductsByCategory(
+      productsStore.products,
+      newSlug
+    );
+  }
 );
+
+const filterProductsByCategory = (products, categorySlug) => {
+  return products.filter((product) => product.category.slug === categorySlug);
+};
+
 const responsiveOptions = ref([
   {
     breakpoint: "1920px",

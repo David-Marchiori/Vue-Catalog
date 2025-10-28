@@ -1,7 +1,5 @@
 <template>
-  <h1>Home</h1>
   <BannerMain :banners="['banner.png', 'banner2.jpg']" />
-
   <ProductCarousel />
 </template>
 <script setup>
